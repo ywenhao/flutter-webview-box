@@ -33,9 +33,9 @@ const _registerCallback = <T>(resolve: (value: T) => void, reject: (reason?: any
   return id
 }
 
-const postMessageToNative = (name: string, args?: any, cbId?: string) => {
+const postMessageToNative = (method: string, args?: any, cbId?: string) => {
   if (isReady()) {
-    let params: any = { name, args }
+    let params: any = { method, args }
     if (typeof cbId !== 'undefined' && cbId !== null) {
       params = { ...params, _cbId: cbId }
     }
@@ -44,13 +44,13 @@ const postMessageToNative = (name: string, args?: any, cbId?: string) => {
   }
 }
 
-const _invoke = (name: string, args?: any) => postMessageToNative(name, args)
+const _invoke = (method: string, args?: any) => postMessageToNative(method, args)
 
-const _invokeWithResult = <T>(name: string, args?: any): Promise<T> => {
+const _invokeWithResult = <T>(method: string, args?: any): Promise<T> => {
   return new Promise<T>((resolve, reject) => {
     if (isReady()) {
       const id = _registerCallback(resolve, reject)
-      postMessageToNative(name, args, id)
+      postMessageToNative(method, args, id)
     } else {
       reject('jsBridge is not ready')
     }
@@ -61,5 +61,5 @@ const isReady = () => !!(window as any).FlutterBridge
 
 export const flutterBridge = {
   test: () => _invoke('test'),
-  testResult: () => _invokeWithResult<string>('testResult')
+  testResult: () => _invokeWithResult<string>('testResult'),
 }

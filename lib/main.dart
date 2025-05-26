@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final webviewUrl = "http://192.168.60.163:5173/";
+  final webviewUrl = "http://192.168.60.163:3000/";
 
   late final WebViewController controller;
 
@@ -84,7 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
-    final method = params["name"];
+    // js 调用的方法名称
+    final method = params["method"];
+    // js 调用的方法参数
     final args = params["args"];
 
     // 直接运行， 没有返回值
