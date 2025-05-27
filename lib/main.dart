@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final webviewUrl = "http://192.168.60.163:3000/";
+  final webviewUrl = "https://192.168.60.163:9527/";
 
   late final WebViewController controller;
 
@@ -50,6 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
             // 处理网络错误（如 SSL 错误）
             print('WebView 错误: ${error.description}');
           },
+          // ssl 错误
+          onSslAuthError: (request) => request.proceed(),
+          onPageFinished: (url) {
+            // 页面加载完成后执行的操作
+            // Permission.camera.request();
+            print('页面加载完成: $url');
+          },
         ),
       )
       ..addJavaScriptChannel(
@@ -57,6 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
         onMessageReceived: onMessageReceived,
       )
       ..loadRequest(Uri.parse(webviewUrl)); // 加载 URL
+
+    // webview 允许请求权限
+    // controller.platform.setOnPlatformPermissionRequest((request) {
+    //   request.grant();
+    // });
 
     // 针对 Android 平台的配置
     if (controller.platform is AndroidWebViewController) {
