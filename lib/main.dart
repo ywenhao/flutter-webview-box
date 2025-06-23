@@ -106,20 +106,22 @@ class _MyHomePageState extends State<MyHomePage> {
     if (cbId == null) {
       // todo
     } else {
-      // todo
       // 有返回值， 异步调用
-      try {
-        callJsResolve(cbId, {
-          "args": args,
-          "error": "METHOD_NOT_FOUND",
-          "message": "未找到方法: $method",
-        });
-      } catch (e) {
-        callJsReject(cbId, {
-          "error": "INTERNAL_ERROR",
-          "message": "方法执行出错: $e",
-        });
-      }
+      // todo
+
+      // 示例
+      // try {
+      //   callJsResolve(cbId, {
+      //     "args": args,
+      //     "error": null,
+      //     "message": "方法名: $method",
+      //   });
+      // } catch (e) {
+      //   callJsReject(cbId, {
+      //     "error": "INTERNAL_ERROR",
+      //     "message": "方法执行出错: $e",
+      //   });
+      // }
     }
   }
 
