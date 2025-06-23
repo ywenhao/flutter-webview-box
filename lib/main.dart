@@ -80,8 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onMessageReceived(JavaScriptMessage javaScriptMessage) {
     final params = jsonDecode(javaScriptMessage.message);
-    // 处理来自 Flutter 的消息
-    print('收到来自 Flutter 的消息: $params');
+    // 处理来自 H5 的消息
+    print('收到来自 H5 的消息: $params');
 
     final cbId = params["_cbId"];
 
@@ -106,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (cbId == null) {
       // todo
     } else {
+      // todo
       // 有返回值， 异步调用
       try {
         callJsResolve(cbId, {
