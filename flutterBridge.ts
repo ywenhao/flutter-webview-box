@@ -24,8 +24,8 @@ const _registerCallback = <T>(resolve: (value: T) => void, reject: (reason?: any
             cb.reject({})
           }
           // eslint-disable-next-line no-unused-vars
-        } catch (_) {
-          cb.reject(reason)
+        } catch (err) {
+          cb.reject(reason || err)
         }
       }
     }
